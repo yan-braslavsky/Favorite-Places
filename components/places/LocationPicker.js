@@ -8,11 +8,13 @@ import { getCurrentPositionAsync, useForegroundPermissions, PermissionStatus } f
 import { Alert } from 'react-native';
 import { getMapPreview } from '../../util/location';
 import { Image } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 
 
 function LocationPicker(props) {
     const [pickedLocation, setPickedLocation] = useState(null);
     const [locationPermissionInformation, requestPermission] = useForegroundPermissions();
+    const navigation = useNavigation();
 
     async function verifyPermissions() {
         if (locationPermissionInformation.status === PermissionStatus.UNDETERMINED) {
@@ -32,7 +34,7 @@ function LocationPicker(props) {
         return true;
     }
 
-    async function getLocationHandler(newLocation) {
+    async function getLocationHandler() {
         const hasPermission = await verifyPermissions();
         if (!hasPermission) {
             return;
@@ -46,8 +48,8 @@ function LocationPicker(props) {
 
     }
 
-    function pickOnmapHandler(newLocation) {
-        setPickedLocation(newLocation);
+    function pickOnmapHandler() {
+        navigation.navigate('Map');
     }
 
     let locationPreview = <Text>No location chosen yet!</Text>
@@ -90,6 +92,8 @@ const styles = StyleSheet.create({
     },
     mapPreviewImage: {
         width: '100%',
-        height: '100%'
+        height: '100%',
+        borderRadius: 4,
+        borderColor: Colors.primary500
     }
 });
