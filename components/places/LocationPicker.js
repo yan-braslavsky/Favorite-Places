@@ -63,7 +63,7 @@ function LocationPicker() {
     let locationPreview = <Text>No location chosen yet!</Text>
 
     if (pickedLocation) {
-        locationPreview = <Image style={styles.mapPreviewImage} source={{ uri: getMapPreview(pickedLocation.lat, pickedLocation.lng) }} style={styles.mapPreview} />
+        locationPreview = <Image style={styles.mapPreviewImage} source={{ uri: getMapPreview(pickedLocation.lat, pickedLocation.lng) }} />
     }
     return (
         <View>
