@@ -5,6 +5,7 @@ import React from "react";
 import { Colors } from "../../constants/colors";
 import ImagePicker from "../ImagePicker";
 import LocationPicker from "../places/LocationPicker";
+import CustomButton from "../ui/CustomButton";
 
 function PlaceForm() {
     const [enteredTitle, setEnteredTitle] = useState('');
@@ -12,6 +13,10 @@ function PlaceForm() {
     function titleChangeHandler(enteredTitle) {
         setEnteredTitle(enteredTitle);
     }
+
+    function savePlaceHandler() {
+        console.log(enteredTitle);
+    }   
 
     return (
         <ScrollView style={styles.form}>
@@ -21,6 +26,7 @@ function PlaceForm() {
             </View>
             <ImagePicker />
             <LocationPicker />
+            <CustomButton onPress={savePlaceHandler} >Add Place</CustomButton>
         </ScrollView>
     );
 }
