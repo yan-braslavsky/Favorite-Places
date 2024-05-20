@@ -8,6 +8,11 @@ These instructions will get you a copy of the project up and running on your loc
 
 ### Prerequisites
 
+# Make sure to replace the value of the API key with your own
+# Create a .env file in the root of the project and add the following line
+# You can obtain a key from https://developers.google.com/maps/documentation/maps-static
+EXPO_PUBLIC_GOOGLE_MAPS_STATIC_API=YOUR_API_KEY
+
 What things you need to install the software and how to install them
 
 ### Installing
