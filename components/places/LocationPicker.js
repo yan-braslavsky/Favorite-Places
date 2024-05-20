@@ -4,12 +4,14 @@ import OutlinedButton from '../ui/OutlinedButton';
 import { Text } from 'react-native';
 import { StyleSheet } from 'react-native';
 import { Colors } from '../../constants/colors';
-import { getCurrentPositionAsync,useForegroundPermissions,PermissionStatus } from 'expo-location';
+import { getCurrentPositionAsync, useForegroundPermissions, PermissionStatus } from 'expo-location';
 import { Alert } from 'react-native';
+import { getMapPreview } from '../../util/location';
+import { Image } from 'react-native';
 
 
 function LocationPicker(props) {
-    const [location, setLocation] = useState(null);
+    const [pickedLocation, setPickedLocation] = useState(null);
     const [locationPermissionInformation, requestPermission] = useForegroundPermissions();
 
     async function verifyPermissions() {
@@ -37,17 +39,27 @@ function LocationPicker(props) {
         }
 
         const location = await getCurrentPositionAsync();
-        console.log(location);
-        
+        setPickedLocation({
+            lat: location.coords.latitude,
+            lng: location.coords.longitude
+        });
+
     }
 
     function pickOnmapHandler(newLocation) {
-        setLocation(newLocation);
+        setPickedLocation(newLocation);
+    }
+
+    let locationPreview = <Text>No location chosen yet!</Text>
+
+    if (pickedLocation) {
+        locationPreview = <Image style={styles.mapPreviewImage} source={{ uri: getMapPreview(pickedLocation.lat, pickedLocation.lng) }} style={styles.mapPreview} />
     }
     return (
         <View>
             <View style={styles.mapPreview}>
-                <Text>No location chosen yet!</Text>
+                {locationPreview}
+
             </View>
             <View style={styles.actions}>
                 <OutlinedButton onPress={getLocationHandler} icon={"location"}>Locate User</OutlinedButton>
@@ -75,5 +87,9 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-around',
         alignItems: 'center',
+    },
+    mapPreviewImage: {
+        width: '100%',
+        height: '100%'
     }
 });

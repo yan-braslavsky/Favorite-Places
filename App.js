@@ -8,10 +8,8 @@ import IconButton from './components/ui/IconButton';
 import { Colors } from './constants/colors';
 
 const Stack = createNativeStackNavigator();
-
 export default function App() {
   return (
-    // "expo": "~50.0.17",
     <>
       <StatusBar style="dark" />
       <NavigationContainer>
