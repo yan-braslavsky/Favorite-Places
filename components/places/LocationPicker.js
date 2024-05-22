@@ -7,7 +7,7 @@ import { getMapPreview } from '../../util/location';
 import OutlinedButton from '../ui/OutlinedButton';
 
 
-function LocationPicker() {
+function LocationPicker({ onPickLocation}) {
     const [pickedLocation, setPickedLocation] = useState(null);
     const [locationPermissionInformation, requestPermission] = useForegroundPermissions();
     const navigation = useNavigation();
@@ -23,6 +23,11 @@ function LocationPicker() {
 
 
     }, [route, isFocused]);
+
+    useEffect(() => {
+        onPickLocation(pickedLocation);
+    }, [pickedLocation,onPickLocation]);
+        
 
     async function verifyPermissions() {
         if (locationPermissionInformation.status === PermissionStatus.UNDETERMINED) {
@@ -53,7 +58,6 @@ function LocationPicker() {
             lat: location.coords.latitude,
             lng: location.coords.longitude
         });
-
     }
 
     function pickOnmapHandler() {

@@ -9,7 +9,7 @@ import { useState } from "react";
 import { Text } from "react-native";
 import OutlinedButton from "./ui/OutlinedButton";
 
-function ImagePicker() {
+function ImagePicker({ onTakeImage}) {
     const [cameraPersmissionInformation, requestPermission] = useCameraPermissions();
     const [pickedImage, setPickedImage] = useState(null);
 
@@ -45,6 +45,7 @@ function ImagePicker() {
         });
 
         setPickedImage(image.assets[0].uri);
+        onTakeImage(image.assets[0].uri);
     }
 
     let imagePreview = <Text>No image picked yet</Text>;
