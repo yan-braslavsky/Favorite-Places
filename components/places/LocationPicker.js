@@ -3,11 +3,11 @@ import { PermissionStatus, getCurrentPositionAsync, useForegroundPermissions } f
 import React, { useEffect, useState } from 'react';
 import { Alert, Image, StyleSheet, Text, View } from 'react-native';
 import { Colors } from '../../constants/colors';
-import { getMapPreview } from '../../util/location';
+import { getAdress, getMapPreview } from '../../util/location';
 import OutlinedButton from '../ui/OutlinedButton';
 
 
-function LocationPicker({ onPickLocation}) {
+function LocationPicker({ onPickLocation }) {
     const [pickedLocation, setPickedLocation] = useState(null);
     const [locationPermissionInformation, requestPermission] = useForegroundPermissions();
     const navigation = useNavigation();
@@ -25,9 +25,17 @@ function LocationPicker({ onPickLocation}) {
     }, [route, isFocused]);
 
     useEffect(() => {
-        onPickLocation(pickedLocation);
-    }, [pickedLocation,onPickLocation]);
-        
+
+        async function handleLocation() {
+            if (pickedLocation) {
+                const address = await getAdress(pickedLocation.lat, pickedLocation.lng);
+                onPickLocation({ ...pickedLocation, address: address});
+            }
+        };
+
+        handleLocation();
+    }, [pickedLocation, onPickLocation]);
+
 
     async function verifyPermissions() {
         if (locationPermissionInformation.status === PermissionStatus.UNDETERMINED) {

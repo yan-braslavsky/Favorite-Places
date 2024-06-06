@@ -51,11 +51,8 @@ function ImagePicker({ onTakeImage}) {
     let imagePreview = <Text>No image picked yet</Text>;
 
     if (pickedImage) {
-        console.log(pickedImage);
         imagePreview = <Image style={styles.image} source={{ uri: pickedImage }} />;
-    } else {
-        console.log('No image');
-    }
+    } 
 
     return (
         <View >

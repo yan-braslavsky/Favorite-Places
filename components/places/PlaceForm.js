@@ -6,14 +6,15 @@ import { Colors } from "../../constants/colors";
 import ImagePicker from "../ImagePicker";
 import LocationPicker from "../places/LocationPicker";
 import CustomButton from "../ui/CustomButton";
+import {Place} from "../../models/Place";
 
-function PlaceForm() {
-    const [enteredTitle, setEnteredTitle] = useState('');
+function PlaceForm({ onCreatePlace}) {
+    const [enteredTitle, setEnteredTitle] = useState("");
     const [selectedImage, setSelectedImage] = useState();
     const [selectedLocation, setSelectedLocation] = useState();
 
-    function titleChangeHandler(enteredTitle) {
-        setEnteredTitle(enteredTitle);
+    function titleChangeHandler(changedString) {
+        setEnteredTitle(changedString);
     }
 
     function takeImageHandler(imageUri) {
@@ -23,22 +24,18 @@ function PlaceForm() {
     const pickLocationHandler = useCallback((location) => {
         setSelectedLocation(location);
     }, []);
-    // function pickLocationHandler(location) {
-    //     setSelectedLocation(location);
-    // }
 
 
     function savePlaceHandler() {
-        console.log(enteredTitle);
-        console.log(selectedImage);
-        console.log(selectedLocation);
+        const data =  new Place(enteredTitle, selectedImage, selectedLocation);
+        onCreatePlace(data);
     }
 
     return (
         <ScrollView style={styles.form}>
             <View >
                 <Text style={styles.label}>Title</Text>
-                <TextInput style={styles.input} onChange={titleChangeHandler} placeholder="Place Name" value={enteredTitle} />
+                <TextInput style={styles.input} onChangeText={titleChangeHandler} placeholder="Place Name" value={enteredTitle} />
             </View>
             <ImagePicker onTakeImage={takeImageHandler} />
             <LocationPicker onPickLocation={pickLocationHandler} />
