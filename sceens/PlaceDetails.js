@@ -17,7 +17,7 @@ export default function PlaceDetails({ route, navigation }) {
         // fetch the place from the database
         async function loadPlaceData() {
             const fetchedPlace = await fetchPlaceDetails(selectedPlaceId);
-            console.log("fetchedPlace",fetchedPlace);
+            console.log("fetchedPlace", fetchedPlace);
             setPlace(fetchedPlace);
             navigation.setOptions({ title: fetchedPlace.title });
         }
@@ -28,6 +28,13 @@ export default function PlaceDetails({ route, navigation }) {
 
     function shoOnMapHandler() {
         // navigate to the map screen
+        navigation.navigate('Map', {
+            readOnly: true,
+            initialLocation: {
+                lat: place.location.lat,
+                lng: place.location.lng
+            }
+        });
     }
 
     if (!place) {
