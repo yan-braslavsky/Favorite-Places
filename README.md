@@ -2,6 +2,15 @@
 
 This small app allows you to take fotos of your favorite location and connect it to a map view.
 
+## Screenshots
+
+| Places List | Add Place | Map View |
+| :---: | :---: | :---: |
+| ![Expense Tracker App - Home Page](https://github.com/yan-braslavsky/Favorite-Places/assets/1155059/4ff7e52e-16f5-4a47-b865-81c6da40f74b) | ![Expense Tracker App - Add Expense](https://github.com/yan-braslavsky/Favorite-Places/assets/1155059/552e882c-84d1-4aaa-bc3d-30d57dd2f140) | ![Expense Tracker App - Recent Expenses](https://github.com/yan-braslavsky/Favorite-Places/assets/1155059/7e3121f5-2226-4836-9bea-10521ef5019a) |
+| *Image 1* | *Image 2* | *Image 3* |
+
+
+
 ## Getting Started
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
@@ -15,22 +24,6 @@ These instructions will get you a copy of the project up and running on your loc
 
 What things you need to install the software and how to install them
 
-### Installing
-
-A step by step series of examples that tell you how to get a development environment running
-End with an example of getting some data out of the system or using it for a little demo
-
-## Running the tests
-
-Explain how to run the automated tests for this system
-
-### Break down into end to end tests
-Explain what these tests test and why
-
-
-## Deployment
-
-Add additional notes about how to deploy this on a live system
 
 ## Built With
 
