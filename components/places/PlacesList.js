@@ -3,9 +3,16 @@ import PlaceItem from "./PlaceItem";
 import React from "react";
 import { StyleSheet } from "react-native";
 import { Colors } from "../../constants/colors";
+import { useNavigation } from "@react-navigation/native";
 
 
 function PlacesList({ places = [] }) {
+
+    const navigation = useNavigation();
+
+    function selectPlaceHandler(placeId) {
+        navigation.navigate('PlaceDetails', { placeId });
+    }
 
     if (!places.length) {
         return <View style={styles.fallbackContainer}>
@@ -17,7 +24,7 @@ function PlacesList({ places = [] }) {
         style={styles.list}
         data={places}
         keyExtractor={(item) => item.id}
-        renderItem={({ item }) => <PlaceItem place={item} />} />
+        renderItem={({ item }) => <PlaceItem place={item} onSelect={selectPlaceHandler} />} />
 }
 
 export default PlacesList;

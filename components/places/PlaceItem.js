@@ -4,12 +4,12 @@ import { StyleSheet } from "react-native";
 import { Colors } from "../../constants/colors";
 
 
-function PlaceItem({ place: { imageUri, title, address }, onSelect }) {
-    return <Pressable style={({pressed})=> [styles.item,pressed && styles.pressed]} onPress={onSelect}>
+function PlaceItem({ place, onSelect }) {
+    return <Pressable style={({ pressed }) => [styles.item, pressed && styles.pressed]} onPress={onSelect.bind(this, place.id)}>
         <View style={styles.info}>
-            <Image style={styles.image} source={{ uri: imageUri }}  />
-            <Text style={styles.title}>{title}</Text>
-            <Text style={styles.address}>{address}</Text>
+            <Image style={styles.image} source={{ uri: place.imageUri }} />
+            <Text style={styles.title}>{place.title}</Text>
+            <Text style={styles.address}>{place.address}</Text>
         </View>
     </Pressable>;
 }
