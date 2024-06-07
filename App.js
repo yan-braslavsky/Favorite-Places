@@ -54,7 +54,7 @@ export default function App() {
             title: 'Map'
           }} />
           <Stack.Screen name="PlaceDetails" component={PlaceDetails} options={{
-            title: 'Details'
+            title: 'Loading Place...'
           }} />
         </Stack.Navigator>
       </NavigationContainer>

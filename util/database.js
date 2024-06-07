@@ -22,17 +22,18 @@ export function init() {
     });
 }
 
-export function insertPlace({ title, imageUri, address, location }) {
+export function insertPlace(place) {
     return new Promise((resolve, reject) => {
         database.transaction((tx) => {
             tx.executeSql(
                 `INSERT INTO places (title, imageUri, address, lat, lng) VALUES (?, ?, ?, ?, ?);`,
-                [title, imageUri, address, location.lat, location.lng],
+                [place.title, place.imageUri, place.address, place.location.lat, place.location.lng],
                 (_, result) => {
-                    console.log(result);
                     resolve(result);
                 },
-                (_, error) => reject(error)
+                (_, error) => {
+                    reject(error)
+                }
             );
         });
     });
@@ -47,9 +48,26 @@ export function fetchPlaces() {
                 (_, result) => {
                     const places = [];
                     for (const dp of result.rows._array) {
-                        places.push(new Place(dp.title, dp.imageUri, { adress: dp.address, lat: dp.lat, lng: dp.lng }, dp.id));
+                        places.push(new Place(dp.title, dp.imageUri, { address: dp.address, lat: dp.lat, lng: dp.lng }, dp.id));
                     }
                     resolve(places);
+                },
+                (_, error) => reject(error)
+            );
+        });
+    });
+}
+
+export function fetchPlaceDetails(id) {
+    return new Promise((resolve, reject) => {
+        database.transaction((tx) => {
+            tx.executeSql(
+                `SELECT * FROM places WHERE id = ?`,
+                [id],
+                (_, result) => {
+                    const dp = result.rows._array[0];
+                    const place = new Place(dp.title, dp.imageUri, { address: dp.address, lat: dp.lat, lng: dp.lng }, dp.id);
+                    resolve(place);
                 },
                 (_, error) => reject(error)
             );
